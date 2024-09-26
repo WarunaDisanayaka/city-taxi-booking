@@ -142,20 +142,6 @@ const Header = () => {
                 ))}
               </div>
             </div>
-
-            <div className="menu__right d-flex gap-4 align-items-center  ">
-              <span className="header__cart">
-                <i class="ri-shopping-bag-line" onClick={cartShowToggle}></i>
-                <span className="badge">{totalQuantity}</span>
-              </span>
-
-              <div className="search">
-                <input type="text" placeholder="search" />
-                <span>
-                  <i class="ri-search-line"></i>
-                </span>
-              </div>
-            </div>
           </div>
         </Container>
       </div>

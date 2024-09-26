@@ -17,7 +17,7 @@ const FindCarForm = () => {
       <div className=" d-flex align-items-center justify-content-between flex-wrap">
         <FormGroup className="form__group">
           <Input
-            placeholder="From Address"
+            placeholder="From"
             type="text"
             required
             value={enterFromAddress}
@@ -26,7 +26,7 @@ const FindCarForm = () => {
         </FormGroup>
         <FormGroup className="form__group">
           <Input
-            placeholder="To Address"
+            placeholder="To"
             type="text"
             required
             value={enterToAddress}
@@ -36,7 +36,7 @@ const FindCarForm = () => {
 
         <FormGroup className="form__group">
           <Input
-            placeholder="Journey Date"
+            placeholder="Date"
             type="date"
             required
             value={enterJourneyDate}
@@ -46,7 +46,7 @@ const FindCarForm = () => {
 
         <FormGroup className="form__group">
           <Input
-            placeholder="Journey Time"
+            placeholder="Time"
             type="time"
             className="time__picker"
             required
