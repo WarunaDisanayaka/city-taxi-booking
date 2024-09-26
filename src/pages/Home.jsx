@@ -43,7 +43,7 @@ const Home = () => {
         </Container>
       </section>
 
-      <section>
+      {/* <section>
         <Container>
           <Row>
             <Col lg="12" className="text-center mb-5">
@@ -54,9 +54,9 @@ const Home = () => {
             <ServicesItem />
           </Row>
         </Container>
-      </section>
+      </section> */}
 
-      <section>
+      {/* <section>
         <Container>
           <Row>
             <Col lg="12 text-center mb-5">
@@ -67,7 +67,7 @@ const Home = () => {
             <HotOffer />
           </Row>
         </Container>
-      </section>
+      </section> */}
 
       <section className="become__driver">
         <Container>
@@ -87,7 +87,7 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-      <section>
+      {/* <section>
         <Container>
           <Row>
             <Col lg="12" className="text-center mb-5">
@@ -97,7 +97,7 @@ const Home = () => {
             <BlogList />
           </Row>
         </Container>
-      </section>
+      </section> */}
     </Helmet>
   );
 };

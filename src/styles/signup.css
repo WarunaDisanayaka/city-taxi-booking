@@ -17,8 +17,8 @@
 }
 
 .active {
-  background: #000d6b !important;
-  color: #fff !important;
+  background: #fff !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 .active2 {
