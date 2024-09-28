@@ -40,3 +40,17 @@
 .booking__form select:focus {
   outline: none;
 }
+
+.form-container {
+  justify-content: center;
+  align-items: center;
+}
+
+.booking__form {
+  margin: 0 auto;
+}
+
+button.booking-btn.btn.btn-primary {
+  margin-left: 55rem;
+}
+

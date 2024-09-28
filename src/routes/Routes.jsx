@@ -17,6 +17,8 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Contact from '../pages/Contact';
 import NotFound from '../pages/NotFound';
+import CarBookingView from '../pages/CarBooking';
+import BookingDetails from '../pages/BookingDetails';
 
 const routes = () => {
   return (
@@ -29,8 +31,14 @@ const routes = () => {
       <Route path="/service-details/:id" element={<ServiceDetails />} />
       <Route path="/car-listing" element={<CarRental />} />
       <Route path="/car-details/:id" element={<CarBooking />} />
+
+      <Route path="/booking/:id" element={<CarBookingView />} />
+      
       <Route path="/products" element={<Products />} />
       <Route path="/product-details/:id" element={<ProductDetails />} />
+
+      <Route path="/booking-details" element={<BookingDetails />} />
+
 
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/blogs" element={<Blogs />} />

@@ -14,7 +14,7 @@ const FindCarForm = () => {
     // Initialize Google Maps Places Autocomplete
     if (window.google) {
       const autocomplete = new window.google.maps.places.Autocomplete(fromInputRef.current, {
-        types: ['geocode'], // You can customize this according to your needs (e.g., ['(cities)'])
+        types: ['geocode'],
       });
 
       autocomplete.addListener('place_changed', () => {
@@ -28,7 +28,6 @@ const FindCarForm = () => {
 
   const submitHandler = e => {
     e.preventDefault();
-    // Add your submission logic here
   };
 
   return (
@@ -42,8 +41,8 @@ const FindCarForm = () => {
             required
             value={enterFromAddress}
             onChange={e => setEnterFromAddress(e.target.value)}
-            ref={fromInputRef} // Reference to input field for Google Places API
-            className="form-control" // Add Bootstrap styling or your custom class
+            ref={fromInputRef}
+            className="form-control"
           />
         </FormGroup>
 
@@ -54,7 +53,7 @@ const FindCarForm = () => {
             required
             value={enterToAddress}
             onChange={e => setEnterToAddress(e.target.value)}
-            className="form-control" // Add Bootstrap styling or your custom class
+            className="form-control"
           />
         </FormGroup>
 
@@ -65,7 +64,7 @@ const FindCarForm = () => {
             required
             value={enterJourneyDate}
             onChange={e => setEnterJourneyDate(e.target.value)}
-            className="form-control" // Add Bootstrap styling or your custom class
+            className="form-control"
           />
         </FormGroup>
 
@@ -73,7 +72,7 @@ const FindCarForm = () => {
           <input
             placeholder="Time"
             type="time"
-            className="time__picker form-control" // Add Bootstrap styling or your custom class
+            className="time__picker form-control"
             required
             value={enterJourneyTime}
             onChange={e => setEnterJourneyTime(e.target.value)}
@@ -84,7 +83,7 @@ const FindCarForm = () => {
           <select
             value={selectedAc}
             onChange={e => setSelectedAc(e.target.value)}
-            className="form-select" // Add Bootstrap styling or your custom class
+            className="form-select"
           >
             <option value="AC Car">AC Car</option>
             <option value="Non AC Car">Non AC Car</option>
