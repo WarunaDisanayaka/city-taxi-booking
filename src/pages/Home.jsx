@@ -17,8 +17,9 @@ import AboutSection from '../components/AboutSection';
 const Home = () => {
   return (
     <Helmet title="Home">
-      <section className="p-0 hero__slider__section">
-        <HeroSlider />
+              <HeroSlider />
+
+      {/* <section className="p-0 hero__slider__section">
 
         <div className="hero__form">
           <Container className="">
@@ -35,7 +36,7 @@ const Home = () => {
             </Row>
           </Container>
         </div>
-      </section>
+      </section> */}
 
       <section className="about__section">
         <Container>

@@ -30,14 +30,7 @@ const BecomeDriverForm = () => {
           <span>
             <i class="ri-steering-2-line"></i>
           </span>
-          <input type="text" placeholder="Driving License Number" required />
-        </FormGroup>
-
-        <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
-          <span>
-            <i class="ri-global-line"></i>
-          </span>
-          <input type="text" placeholder="Country" required />
+          <input type="text" placeholder="Vehicle Number" required />
         </FormGroup>
 
         <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
