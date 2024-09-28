@@ -11,56 +11,47 @@ import { Container, Row } from 'reactstrap';
 import CarCard from '../components/CarCard';
 
 const CarRental = () => {
-  const { data: carData, isPending, error } = useFetch(`${BASE_URL}/cars`);
+  const { data: driverData, isPending, error } = useFetch(`${BASE_URL}/api/drivers/available`);
 
   const [pageNumber, setPageNumber] = useState(0);
-  const carPerPage = 6;
-  const visitedPage = pageNumber * carPerPage;
-  const displayPage = carData
-    .slice(visitedPage, visitedPage + carPerPage)
-    .map(item => <CarCard item={item} />);
+  const driversPerPage = 6;
+  const visitedPage = pageNumber * driversPerPage;
 
-  const pageCount = Math.ceil(carData.length / carPerPage);
+  const displayPage = driverData
+    ? driverData
+      .slice(visitedPage, visitedPage + driversPerPage)
+      .map(driver => <CarCard key={driver.id} item={driver} />)
+    : null;
+
+  const pageCount = driverData ? Math.ceil(driverData.length / driversPerPage) : 0;
+
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [carData]);
+  }, [driverData]);
 
   return (
-    <Helmet title="Car-Listing">
+    <Helmet title="Driver-Listing">
       <section className="pt-0">
-        <CommonSection title="Car Listing" />
+        <CommonSection title="Driver Listing" />
       </section>
-      <section className="pt-0">
+      <section className="pt-0 justify-content-center">
         <Container>
-          <Row>
-            {isPending && <h6 className="text-center">Loading......</h6>}
-            {error && <h6 className="text-center">{error}</h6>}
-            <div className=" d-flex align-items-center mb-5 gap-3 car__sorting">
-              <span className=" d-flex align-items-center  gap-1">
-                <i class="ri-sort-asc"></i> Sort By
-              </span>
-              <select name="" id="">
-                <option value="Default">Default</option>
-                <option value="Low-High">Price ( Low to High )</option>
-                <option value="High-Low">Price ( High to Low )</option>
-              </select>
-            </div>
-
-            {displayPage}
-            <div>
-              <ReactPaginate
-                previousLabel={'Prev'}
-                nextLabel={'Next'}
-                pageCount={pageCount}
-                onPageChange={changePage}
-                containerClassName="paginationBttns"
-              />
-            </div>
-          </Row>
+          {isPending && <h6 className="text-center">Loading......</h6>}
+          {error && <h6 className="text-center">{error}</h6>}
+          {displayPage}
+          <div>
+            <ReactPaginate
+              previousLabel={'Prev'}
+              nextLabel={'Next'}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName="paginationBttns"
+            />
+          </div>
         </Container>
       </section>
     </Helmet>

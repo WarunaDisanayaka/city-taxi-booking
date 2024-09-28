@@ -21,6 +21,13 @@ const Register = () => {
 
         <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
           <span>
+            <i class="ri-phone-line"></i>
+          </span>
+          <input type="number" placeholder="Phone Number" required />
+        </FormGroup>
+
+        <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
+          <span>
             <i class="ri-lock-2-line"></i>
           </span>
           <input type="password" placeholder="Password" required />
