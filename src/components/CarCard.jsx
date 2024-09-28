@@ -27,7 +27,7 @@ const CarCard = ({ item }) => { // Accept item as props
             </span>
           </div>
           <Button className="w-50 carItem__btn carItem__btn-rent">
-            <Link to={`/driver-details/${driver.id}`}>RENT</Link>
+            <Link to={`/booking/${driver.id}`}>BOOK</Link>
           </Button>
           <Button className="w-50 carItem__btn carItem__btn-details">
             <Link to={`/driver-details/${driver.id}`}>Details</Link>
