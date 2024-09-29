@@ -11,12 +11,9 @@ const Layout = () => {
   const cartUi = useSelector(state => state.cartUi.cartIsVisible);
   return (
     <div>
-      <Header />
       <div>
         <Routes />
       </div>
-      {cartUi && <Cart />}
-      <Footer />
     </div>
   );
 };

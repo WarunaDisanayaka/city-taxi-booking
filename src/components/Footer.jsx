@@ -50,21 +50,7 @@ const Footer = () => {
                 </p>
               </div>
             </Col>
-            <Col lg="2" md="4" sm="6">
-              <div className="mb-4 ">
-                <h5 className="text-light footer__quick__links">Quick Links</h5>
-                <ListGroup>
-                  {QUICK__LINKS.map((item, index) => (
-                    <ListGroupItem
-                      className="p-0 mt-3 quick__links"
-                      key={index}
-                    >
-                      <Link to={item.path}>{item.display}</Link>
-                    </ListGroupItem>
-                  ))}
-                </ListGroup>
-              </div>
-            </Col>
+            
             <Col lg="3" md="4" sm="6">
               <div className="mb-4">
                 {' '}

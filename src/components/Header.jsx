@@ -104,19 +104,6 @@ const Header = () => {
                 </div>
               </div>
             </Col>
-
-            <Col
-              lg="2"
-              md="3"
-              sm="0"
-              className="text-end d-flex align-items-center justify-content-end"
-            >
-              <Button className="header__btn btn">
-                <Link to="/contact">
-                  <i class="ri-phone-line"></i> Request a call
-                </Link>
-              </Button>
-            </Col>
           </Row>
         </Container>
       </div>
