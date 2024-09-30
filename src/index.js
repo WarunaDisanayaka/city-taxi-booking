@@ -11,14 +11,17 @@ import store from './store/store';
 import { Provider } from 'react-redux';
 
 import App from './App';
+import { AuthProvider } from './context/AuthContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </Router>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
