@@ -1,10 +1,8 @@
 import React from 'react';
 import CommonSection from '../components/CommonSection';
-import { Container, Row, Col, Form, FormGroup } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, Button, Input } from 'reactstrap';
 import Helmet from '../components/Helmet';
 import { Link } from 'react-router-dom';
-
-import '../styles/sign-in.css';
 
 const SignIn = () => {
   return (
@@ -14,33 +12,46 @@ const SignIn = () => {
       </section>
       <section>
         <Container>
-          <Row>
-            <Col lg="4" md="6" sm="8" xs="10" className="m-auto">
-              <h4 className=" d-flex align-items-center gap-2 justify-content-center mb-5">
-                <i class="ri-key-2-line"></i> Sign In
+          <Row className="justify-content-center">
+            <Col lg="4" md="6" sm="8" xs="10">
+              <h4 className="text-center mb-5">
+                <i className="ri-key-2-line me-2"></i> Sign In
               </h4>
               <Form>
-                <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
-                  <span>
-                    <i class="ri-user-line"></i>
-                  </span>
-                  <input type="text" placeholder="Username or Email" required />
+                <FormGroup className="mb-4">
+                  <div className="input-group">
+                    <Input
+                      type="text"
+                      placeholder="Username or Email"
+                      required
+                      className="form-control"
+                    />
+                  </div>
                 </FormGroup>
-                <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
-                  <span>
-                    <i class="ri-lock-2-line"></i>
-                  </span>
-                  <input type="email" placeholder="Password" required />
+
+                <FormGroup className="mb-4">
+                  <div className="input-group">
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      required
+                      className="form-control"
+                    />
+                  </div>
                 </FormGroup>
-                <h6 className="fs-6  text-end">
-                  <Link to="#">Forgot Password?</Link>
-                </h6>
-                <button className="login__btn " type="submit">
+
+                <div className="d-flex justify-content-between mb-3">
+                  <h6 className="fs-6">
+                    <Link to="#">Forgot Password?</Link>
+                  </h6>
+                </div>
+
+                <Button color="primary" className="w-100" type="submit">
                   Login
-                </button>
+                </Button>
               </Form>
 
-              <h6 className="fs-6 text-center mt-4">
+              <h6 className="text-center mt-4">
                 <Link to="/signup">Do you need an Account?</Link>
               </h6>
             </Col>
