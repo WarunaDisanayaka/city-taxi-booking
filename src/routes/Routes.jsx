@@ -21,6 +21,8 @@ import BookingDetails from '../pages/BookingDetails';
 import Header from '../components/Header'; // Import Header
 import Footer from '../components/Footer'; // Import Footer
 import Dashboard from '../components/Admin/dashboard';
+import ProtectedRoute from '../components/ProtectedRoute';
+
 
 const RoutesConfig = () => {
   return (
@@ -98,11 +100,13 @@ const RoutesConfig = () => {
       <Route
         path="/booking/:id"
         element={
-          <>
-            <Header />
-            <CarBookingView />
-            <Footer />
-          </>
+          <ProtectedRoute>
+            <>
+              <Header />
+              <CarBookingView />
+              <Footer />
+            </>
+          </ProtectedRoute>
         }
       />
       <Route
