@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
-import { Form, FormGroup, Input, Button } from 'reactstrap';
-import '../styles/booking-form.css';
+import { useNavigate, useParams } from 'react-router-dom'; // Import useParams to get the ID from the URL
+import { Form, FormGroup, Input, Button, Container, Row, Col } from 'reactstrap';
+import '../styles/booking-form.css'; // Keep your custom styles for specific overrides if necessary
 
 const BookingForm = () => {
+  const { id } = useParams(); // Get the driver id from the URL
   const [enterFromAddress, setEnterFromAddress] = useState('');
   const [enterToAddress, setEnterToAddress] = useState('');
   const [distance, setDistance] = useState(null);
@@ -12,6 +13,8 @@ const BookingForm = () => {
 
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
+
+  console.log(id);
 
   const navigate = useNavigate(); // Use useNavigate for navigation
 
@@ -63,6 +66,7 @@ const BookingForm = () => {
                 distance: distanceInKm,
                 date: journeyDate,
                 time: journeyTime,
+                driverId: id, // Include the driver ID in the state
               },
             });
           } else {
@@ -74,49 +78,68 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <Form>
-        <FormGroup className="booking__form mb-4">
-          <input
-            placeholder="From"
-            type="text"
-            required
-            ref={fromInputRef}
-            className="form-control"
-          />
-        </FormGroup>
-        <FormGroup className="booking__form mb-4">
-          <input
-            placeholder="To"
-            type="text"
-            required
-            ref={toInputRef}
-            className="form-control"
-          />
-        </FormGroup>
-        <FormGroup className="booking__form mb-4">
-          <Input
-            type="date"
-            placeholder="Journey Date"
-            value={journeyDate}
-            onChange={(e) => setJourneyDate(e.target.value)}
-          />
-        </FormGroup>
+    <Container className="py-2">
+      <Row className="justify-content-center">
+        <Col lg="6" md="8" sm="10">
+          <h3 className="text-center mb-4">Book Your Journey</h3>
+          <Form>
+            <FormGroup className="mb-3">
+              <div className="input-group">
+                <span className="input-group-text">
+                  <i className="ri-map-pin-line"></i>
+                </span>
+                <input
+                  type="text"
+                  placeholder="From"
+                  required
+                  ref={fromInputRef}
+                  className="form-control"
+                />
+              </div>
+            </FormGroup>
 
-        <FormGroup className="booking__form mb-4">
-          <Input
-            type="time"
-            placeholder="Journey Time"
-            value={journeyTime}
-            onChange={(e) => setJourneyTime(e.target.value)}
-            className="time__picker"
-          />
-        </FormGroup>
-        <Button color="primary" className="booking-btn" onClick={calculateDistance}>
-          Submit
-        </Button>
-      </Form>
-    </div>
+            <FormGroup className="mb-3">
+              <div className="input-group">
+                <span className="input-group-text">
+                  <i className="ri-map-pin-line"></i>
+                </span>
+                <input
+                  type="text"
+                  placeholder="To"
+                  required
+                  ref={toInputRef}
+                  className="form-control"
+                />
+              </div>
+            </FormGroup>
+
+            <FormGroup className="mb-3">
+              <Input
+                type="date"
+                placeholder="Journey Date"
+                value={journeyDate}
+                onChange={(e) => setJourneyDate(e.target.value)}
+                className="form-control"
+              />
+            </FormGroup>
+
+            <FormGroup className="mb-3">
+              <Input
+                type="time"
+                placeholder="Journey Time"
+                value={journeyTime}
+                onChange={(e) => setJourneyTime(e.target.value)}
+                className="form-control"
+              />
+            </FormGroup>
+
+            <Button color="primary" className="w-100" onClick={calculateDistance}>
+              Submit
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
