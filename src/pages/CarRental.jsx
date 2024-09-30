@@ -36,7 +36,7 @@ const CarRental = () => {
   return (
     <Helmet title="Driver-Listing">
       <section className="pt-0">
-        <CommonSection title="Driver Listing" />
+        <CommonSection title="Taxi's Listing" />
       </section>
       <section className="pt-0 justify-content-center">
         <Container>

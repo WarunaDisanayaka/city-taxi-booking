@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Form, FormGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -46,7 +46,7 @@ const Register = () => {
           email: formData.email,
           phone: formData.phone,
           password: formData.password,
-          userType: formData.userType, 
+          userType: formData.userType,
         }),
       });
 
@@ -64,97 +64,100 @@ const Register = () => {
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
-          <span>
-            <i className="ri-user-line"></i>
-          </span>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Register</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group mb-3">
+          <label htmlFor="username">Username</label>
           <input
             type="text"
-            placeholder="Username"
+            className="form-control"
+            id="username"
             name="username"
             value={formData.username}
             onChange={handleChange}
             required
           />
-        </FormGroup>
-        <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
-          <span>
-            <i className="ri-mail-line"></i>
-          </span>
+        </div>
+
+        <div className="form-group mb-3">
+          <label htmlFor="email">Email</label>
           <input
             type="email"
-            placeholder="Email"
+            className="form-control"
+            id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             required
           />
-        </FormGroup>
+        </div>
 
-        <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
-          <span>
-            <i className="ri-phone-line"></i>
-          </span>
+        <div className="form-group mb-3">
+          <label htmlFor="phone">Phone Number</label>
           <input
-            type="number"
-            placeholder="Phone Number"
+            type="tel"
+            className="form-control"
+            id="phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
             required
           />
-        </FormGroup>
+        </div>
 
-        <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
-          <span>
-            <i className="ri-lock-2-line"></i>
-          </span>
+        <div className="form-group mb-3">
+          <label htmlFor="password">Password</label>
           <input
             type="password"
-            placeholder="Password"
+            className="form-control"
+            id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             required
           />
-        </FormGroup>
-        <FormGroup className="login__form d-flex align-items-center gap-4 mb-4">
-          <span>
-            <i className="ri-lock-2-line"></i>
-          </span>
+        </div>
+
+        <div className="form-group mb-4">
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             type="password"
-            placeholder="Confirm Password"
+            className="form-control"
+            id="confirmPassword"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
             required
           />
-        </FormGroup>
+        </div>
 
-        <h6 className="fs-6 text-center">
-          <label htmlFor="">
-            <input
-              type="checkbox"
-              name="acceptedTerms"
-              checked={formData.acceptedTerms}
-              onChange={handleChange}
-            />{' '}
+        <div className="form-check mb-4">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="acceptedTerms"
+            name="acceptedTerms"
+            checked={formData.acceptedTerms}
+            onChange={handleChange}
+          />
+          <label className="form-check-label" htmlFor="acceptedTerms">
             Accept Terms & Conditions
           </label>
-        </h6>
+        </div>
+
         {errorMessage && <p className="text-danger text-center">{errorMessage}</p>}
         {successMessage && <p className="text-success text-center">{successMessage}</p>}
-        <button className="login__btn" type="submit">
+
+        <button className="btn btn-primary btn-block" type="submit">
           Register Now
         </button>
-      </Form>
+      </form>
+
       <h6 className="fs-6 text-center mt-4">
         <Link to="/signin">Already Have an Account?</Link>
       </h6>
-    </>
+    </div>
   );
 };
 
