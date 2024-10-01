@@ -84,13 +84,6 @@ const SignIn = () => {
                   </div>
                 </FormGroup>
 
-
-                <div className="d-flex justify-content-between mb-3">
-                  <h6 className="fs-6">
-                    <Link to="#">Forgot Password?</Link>
-                  </h6>
-                </div>
-
                 <Button color="primary" className="w-100" type="submit" disabled={loading}>
                   {loading ? 'Logging in...' : 'Login'}
                 </Button>
