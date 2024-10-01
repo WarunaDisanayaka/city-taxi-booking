@@ -19,6 +19,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import Index from '../pages/Admin/Index';
 import Driver from '../pages/Driver/Driver';
 import Bookings from '../pages/Driver/Bookings';
+import SignInDriver from '../pages/SignInDriver';
 
 
 const RoutesConfig = () => {
@@ -167,6 +168,16 @@ const RoutesConfig = () => {
         element={
           <>
             <Driver />
+          </>
+        }
+      />
+      <Route
+        path="/signindriver"
+        element={
+          <>
+            <Header />
+            <SignInDriver />
+            <Footer />
           </>
         }
       />

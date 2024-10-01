@@ -11,12 +11,14 @@ function Bookings() {
     const [bookingData, setBookingData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const userId = localStorage.getItem('driverid'); // Get userId from localStorage
+    console.log(userId)
 
     // Fetch bookings from the API
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/bookings/driver/10'); // Replace '10' with actual driver ID
+                const response = await axios.get(`http://localhost:8000/api/bookings/driver/${userId}`); // Replace '10' with actual driver ID
                 setBookingData(response.data.bookings); // Store the fetched bookings in state
                 setLoading(false);
             } catch (err) {
@@ -125,7 +127,7 @@ function Bookings() {
                                                             updateStatus(
                                                                 booking.id,
                                                                 'Confirmed',
-                                                                10, // Replace with actual driver ID
+                                                                userId, // Replace with actual driver ID
                                                                 booking.phone, // Phone number from table
                                                                 'KV-1234' // Replace with actual vehicle number
                                                             )
