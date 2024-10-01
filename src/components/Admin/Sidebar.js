@@ -29,7 +29,7 @@ const Sidebar = () => {
         {/* <div className="sidebar-brand-icon ">
                     <i className="fas fa-house"></i>
                 </div> */}
-        <div className="sidebar-brand-text mx-3">Car Rental System</div>
+        <div className="sidebar-brand-text mx-3">City Taxi's</div>
       </a>
       <hr className="sidebar-divider my-0" />
       <li className="nav-item">
@@ -103,9 +103,7 @@ const Sidebar = () => {
           </div>
         </div>
       </li>
-     
 
-      
       <hr className="sidebar-divider d-none d-md-block" />
       <div className="text-center d-none d-md-inline"></div>
       <hr className="sidebar-divider d-none d-md-block" />

@@ -20,8 +20,8 @@ import CarBookingView from '../pages/CarBooking';
 import BookingDetails from '../pages/BookingDetails';
 import Header from '../components/Header'; // Import Header
 import Footer from '../components/Footer'; // Import Footer
-import Dashboard from '../components/Admin/dashboard';
 import ProtectedRoute from '../components/ProtectedRoute';
+import Index from '../pages/Admin/Index';
 
 
 const RoutesConfig = () => {
@@ -132,11 +132,14 @@ const RoutesConfig = () => {
       <Route
         path="/booking-details"
         element={
-          <>
-            <Header />
-            <BookingDetails />
-            <Footer />
-          </>
+          <ProtectedRoute>
+
+            <>
+              <Header />
+              <BookingDetails />
+              <Footer />
+            </>
+          </ProtectedRoute>
         }
       />
       <Route
@@ -203,21 +206,10 @@ const RoutesConfig = () => {
         path="/admin"
         element={
           <>
-            <Dashboard />
+            <Index />
           </>
         }
       />
-      <Route
-        path="*"
-        element={
-          <>
-            <Header />
-            <NotFound />
-            <Footer />
-          </>
-        }
-      />
-
       <Route
         path="*"
         element={
