@@ -4,14 +4,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Home';
 import About from '../pages/About';
 import Services from '../pages/Services';
-import ServiceDetails from '../pages/ServiceDetails';
 import CarRental from '../pages/CarRental';
 import CarBooking from '../pages/CarBooking';
-import Products from '../pages/Products';
-import ProductDetails from '../pages/ProductDetails';
-import Checkout from '../pages/Checkout';
 import Blogs from '../pages/Blogs';
-import BlogDetails from '../pages/BlogDetails';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Contact from '../pages/Contact';
@@ -69,16 +64,7 @@ const RoutesConfig = () => {
           </>
         }
       />
-      <Route
-        path="/service-details/:id"
-        element={
-          <>
-            <Header />
-            <ServiceDetails />
-            <Footer />
-          </>
-        }
-      />
+
       <Route
         path="/car-listing"
         element={
@@ -111,26 +97,7 @@ const RoutesConfig = () => {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/products"
-        element={
-          <>
-            <Header />
-            <Products />
-            <Footer />
-          </>
-        }
-      />
-      <Route
-        path="/product-details/:id"
-        element={
-          <>
-            <Header />
-            <ProductDetails />
-            <Footer />
-          </>
-        }
-      />
+
       <Route
         path="/booking-details"
         element={
@@ -144,16 +111,7 @@ const RoutesConfig = () => {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/checkout"
-        element={
-          <>
-            <Header />
-            <Checkout />
-            <Footer />
-          </>
-        }
-      />
+
       <Route
         path="/blogs"
         element={
@@ -164,16 +122,7 @@ const RoutesConfig = () => {
           </>
         }
       />
-      <Route
-        path="/blog-details/:id"
-        element={
-          <>
-            <Header />
-            <BlogDetails />
-            <Footer />
-          </>
-        }
-      />
+
       <Route
         path="/signin"
         element={

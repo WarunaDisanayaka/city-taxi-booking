@@ -1,45 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Row, Col, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router';
 import Sidebar from '../../components/Driver/Sidebar';
 import Topbar from '../../components/Driver/Topbar';
+import axios from 'axios'; // Assuming axios is being used for API calls
 
 function Bookings() {
     const location = useLocation();
     const roleid = location.state;
+    const [bookingData, setBookingData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Initial booking data (for UI purposes)
-    const initialBookingData = [
-        {
-            id: 1,
-            passenger_id: 'P123',
-            driver_id: 'D456',
-            from_location: 'Location A',
-            to_location: 'Location B',
-            distance: '10 km',
-            journey_date: '2024-10-01',
-            journey_time: '10:30 AM',
-            fee: '1200 Rs',
-            status: 'Completed',
-            created_at: '2024-09-25',
-        },
-        {
-            id: 2,
-            passenger_id: 'P789',
-            driver_id: 'D123',
-            from_location: 'Location C',
-            to_location: 'Location D',
-            distance: '25 km',
-            journey_date: '2024-10-05',
-            journey_time: '12:00 PM',
-            fee: '3000 Rs',
-            status: 'In Progress',
-            created_at: '2024-09-30',
-        },
-        // Add more data as needed...
-    ];
+    // Fetch bookings from the API
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/bookings/driver/10'); // Replace '10' with actual driver ID
+                setBookingData(response.data.bookings); // Store the fetched bookings in state
+                setLoading(false);
+            } catch (err) {
+                setError('Failed to fetch booking data');
+                setLoading(false);
+            }
+        };
 
-    const [bookingData, setBookingData] = useState(initialBookingData);
+        fetchBookings();
+    }, []);
 
     // Function to update the status of a booking
     const updateStatus = (id, newStatus) => {
@@ -48,6 +35,9 @@ function Bookings() {
         );
         setBookingData(updatedData);
     };
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
 
     return (
         <div className="d-flex">
@@ -64,8 +54,8 @@ function Bookings() {
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Passenger ID</th>
-                                        <th>Driver ID</th>
+                                        <th>Passenger Name</th>
+                                        <th>Phone</th>
                                         <th>From Location</th>
                                         <th>To Location</th>
                                         <th>Distance</th>
@@ -73,43 +63,42 @@ function Bookings() {
                                         <th>Journey Time</th>
                                         <th>Fee</th>
                                         <th>Status</th>
-                                        <th>Actions</th>
                                         <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {bookingData.map((booking) => (
                                         <tr key={booking.id}>
                                             <td>{booking.id}</td>
-                                            <td>{booking.passenger_id}</td>
-                                            <td>{booking.driver_id}</td>
+                                            <td>{booking.passenger_name}</td>
+                                            <td>{booking.phone}</td>
                                             <td>{booking.from_location}</td>
                                             <td>{booking.to_location}</td>
                                             <td>{booking.distance}</td>
-                                            <td>{booking.journey_date}</td>
+                                            <td>{new Date(booking.journey_date).toLocaleDateString()}</td>
                                             <td>{booking.journey_time}</td>
                                             <td>{booking.fee}</td>
                                             <td>{booking.status}</td>
+                                            <td>{new Date(booking.created_at).toLocaleDateString()}</td>
+
                                             <td>
                                                 {booking.status === 'Confirmed' ? (
                                                     <span>Confirmed</span>
                                                 ) : (
-                                                    <>
-                                                        <Button
-                                                            variant="success"
-                                                            onClick={() =>
-                                                                updateStatus(
-                                                                    booking.id,
-                                                                    'Confirmed'
-                                                                )
-                                                            }
-                                                        >
-                                                            Confirm
-                                                        </Button>
-                                                    </>
+                                                    <Button
+                                                        variant="success"
+                                                        onClick={() =>
+                                                            updateStatus(
+                                                                booking.id,
+                                                                'Confirmed'
+                                                            )
+                                                        }
+                                                    >
+                                                        Confirm
+                                                    </Button>
                                                 )}
                                             </td>
-                                            <td>{booking.created_at}</td>
                                         </tr>
                                     ))}
                                 </tbody>
