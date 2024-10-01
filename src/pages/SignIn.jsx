@@ -62,7 +62,7 @@ const SignIn = () => {
                   <div className="input-group">
                     <Input
                       type="text"
-                      placeholder="Username or Email"
+                      placeholder="Email"
                       required
                       className="form-control"
                       value={emailOrPhone}
