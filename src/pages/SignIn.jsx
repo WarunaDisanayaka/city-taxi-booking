@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import CommonSection from '../components/CommonSection';
 import { Container, Row, Col, Form, FormGroup, Button, Input } from 'reactstrap';
 import Helmet from '../components/Helmet';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext'; // Import AuthContext
+import { useAuth } from '../context/AuthContext'; // Import the AuthContext
 import axios from 'axios';
 
 const SignIn = () => {
@@ -11,32 +11,36 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { setIsAuthenticated } = useContext(AuthContext); // Use AuthContext
+  const userType = "passenger" // Add userType with default value
   const navigate = useNavigate(); // Use navigate for redirection
+  const { setUser, setIsAuthenticated } = useAuth(); // Destructure setUser and setIsAuthenticated
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent form submission
-
+    e.preventDefault();
     setLoading(true);
-    setError('');
+    setError(''); // Clear any previous errors
 
     try {
       const response = await axios.post('http://localhost:8000/api/auth/login', {
-        userType: 'passenger',
+        userType, // Add userType to the payload
         emailOrPhone,
         password,
       });
 
-      // Assuming the token is returned in response.data.token
-      const token = response.data.token;
-      localStorage.setItem('token', token); // Store token in local storage
-      setIsAuthenticated(true); // Update authentication status
-      navigate('/home'); // Redirect to home page or another route
-    } catch (err) {
-      setError('Invalid email or password'); // Handle error
-      console.error(err);
+      const { token, passenger } = response.data;
+
+      localStorage.setItem('token', token); // Save token in localStorage
+      localStorage.setItem('passengerid', passenger.id); // Save token in localStorage
+
+      setUser({ id: passenger.id, username: passenger.username }); // Update user state in context
+      setIsAuthenticated(true); // Set user as authenticated
+
+      navigate('/dashboard'); // Redirect to dashboard or another page
+    } catch (error) {
+      console.error('Login failed:', error);
+      setError('Login failed. Please check your credentials and try again.'); // Show error message
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading spinner
     }
   };
 
@@ -79,6 +83,7 @@ const SignIn = () => {
                     />
                   </div>
                 </FormGroup>
+
 
                 <div className="d-flex justify-content-between mb-3">
                   <h6 className="fs-6">
