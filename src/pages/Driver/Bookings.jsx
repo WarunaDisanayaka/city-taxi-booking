@@ -28,12 +28,43 @@ function Bookings() {
         fetchBookings();
     }, []);
 
-    // Function to update the status of a booking
-    const updateStatus = (id, newStatus) => {
-        const updatedData = bookingData.map((booking) =>
-            booking.id === id ? { ...booking, status: newStatus } : booking
-        );
-        setBookingData(updatedData);
+    // Function to update the status of a booking and send a message
+    const updateStatus = async (bookingId, newStatus, driverId, phone, vehicleNumber) => {
+        try {
+            // 1. Update booking status
+            const response = await axios.put('http://localhost:8000/api/bookings/update-status', {
+                bookingId,
+                newStatus,
+                driverId
+            });
+
+            if (response.status === 200) {
+                // Update local state after successful response
+                const updatedData = bookingData.map((booking) =>
+                    booking.id === bookingId ? { ...booking, status: newStatus } : booking
+                );
+                setBookingData(updatedData);
+
+                // 2. Send the SMS message with the booking details
+                const message = `Your booking confirmed %0A Vehicle: ${vehicleNumber}%0ADriver: Saman`; // Customize the message content as needed
+                await axios.post('https://sender.zirconhost.com/api/v2/send.php', null, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    params: {
+                        user_id: '104684',        // Replace with your actual user_id
+                        api_key: '67d7i8mnkfdhfadsv', // Replace with your actual API key
+                        sender_id: 'My Demo sms',  // Replace with the sender ID
+                        to: phone,                // Phone number from the booking table
+                        message: message          // Customized message
+                    }
+                });
+
+                alert('Booking status updated and SMS sent successfully');
+            }
+        } catch (error) {
+            console.error("Failed to update booking status or send SMS", error);
+        }
     };
 
     if (loading) return <div>Loading...</div>;
@@ -83,15 +114,20 @@ function Bookings() {
                                             <td>{new Date(booking.created_at).toLocaleDateString()}</td>
 
                                             <td>
-                                                {booking.status === 'Confirmed' ? (
-                                                    <span>Confirmed</span>
+                                                {booking.status === 'confirmed' ? (
+                                                    <Button variant="secondary" disabled>
+                                                        Confirmed
+                                                    </Button>
                                                 ) : (
                                                     <Button
                                                         variant="success"
                                                         onClick={() =>
                                                             updateStatus(
                                                                 booking.id,
-                                                                'Confirmed'
+                                                                'Confirmed',
+                                                                10, // Replace with actual driver ID
+                                                                booking.phone, // Phone number from table
+                                                                'KV-1234' // Replace with actual vehicle number
                                                             )
                                                         }
                                                     >
@@ -99,6 +135,7 @@ function Bookings() {
                                                     </Button>
                                                 )}
                                             </td>
+
                                         </tr>
                                     ))}
                                 </tbody>

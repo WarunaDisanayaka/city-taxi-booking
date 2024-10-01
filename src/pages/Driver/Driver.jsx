@@ -5,30 +5,43 @@ import { useLocation } from 'react-router';
 import Sidebar from '../../components/Driver/Sidebar';
 import Topbar from '../../components/Driver/Topbar';
 
-
 function Driver() {
-    const [open, setOpen] = useState('');
-    const [inprogress, setInprogress] = useState('');
-    const [repair, setRepair] = useState('');
-    const [closed, setClosed] = useState('');
+    const [totalBookings, setTotalBookings] = useState('');
+    const [confirmedTrips, setConfirmedTrips] = useState('');
+    const [ongoingTrips, setOngoingTrips] = useState('');
+    const [completedTrips, setCompletedTrips] = useState('');
 
     const location = useLocation();
     const roleid = location.state;
 
-    const variant = ['danger', 'info', 'warning', 'success'];
+    const variant = ['primary', 'success', 'warning', 'info']; // Changed colors
     const titles = [
-        'Total Complains',
-        'Total Reviewed Cases',
-        'Total on Repair cases',
-        'Total Reslove Cases',
-    ];
-    const numbers = [open, inprogress, repair, closed];
+        'Total Bookings',
+        'Confirmed Trips',
+        'Ongoing Trips',
+        'Completed Trips',
+    ]; // Updated titles
+    const numbers = [totalBookings, confirmedTrips, ongoingTrips, completedTrips];
     const iconlist = [
-        'fas fa-exclamation',
-        'fas fa-user-check',
-        'fas fa-wrench',
-        'fas fa-check',
+        'fas fa-car',    // Icon for bookings
+        'fas fa-check',  // Icon for confirmed trips
+        'fas fa-road',   // Icon for ongoing trips
+        'fas fa-flag-checkered', // Icon for completed trips
     ];
+
+    // Example useEffect (future API integration)
+    useEffect(() => {
+        // Here you would fetch data from the API for the dashboard
+        // Example:
+        // axios.get('/api/driver/dashboard').then(response => {
+        //     setTotalBookings(response.data.totalBookings);
+        //     setConfirmedTrips(response.data.confirmedTrips);
+        //     setOngoingTrips(response.data.ongoingTrips);
+        //     setCompletedTrips(response.data.completedTrips);
+        // }).catch(error => {
+        //     console.error('Error fetching dashboard data:', error);
+        // });
+    }, []);
 
     return (
         <div className="d-flex">
