@@ -24,7 +24,7 @@ const Sidebar = () => {
     >
       <a
         className="sidebar-brand d-flex align-items-center justify-content-center"
-        href="/admin_dashboard"
+        href="/driver"
       >
         {/* <div className="sidebar-brand-icon ">
                     <i className="fas fa-house"></i>
@@ -33,7 +33,7 @@ const Sidebar = () => {
       </a>
       <hr className="sidebar-divider my-0" />
       <li className="nav-item">
-        <a className="nav-link" href="/admin">
+        <a className="nav-link" href="/driver">
           <i className="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -52,7 +52,7 @@ const Sidebar = () => {
         >
           <span>
             <i className="fas fa-solid fa-hotel"></i>
-            Booking
+            Bookings
           </span>
           <i className="fas fa-angle-right"></i>
         </a>
@@ -63,8 +63,8 @@ const Sidebar = () => {
           data-parent="#accordionSidebar"
         >
           <div className="bg-white py-2 collapse-inner rounded">
-            <a className="collapse-item" href="/add_room">
-              <i className="fas fa-plus-circle"></i> Add a Booking
+            <a className="collapse-item" href="/bookings">
+              <i className="fas fa-plus-circle"></i> Booking
             </a>
             <a className="collapse-item" href="/view_room">
               <i className="fas fa-newspaper"></i> Booking list
