@@ -23,6 +23,7 @@ import Footer from '../components/Footer'; // Import Footer
 import ProtectedRoute from '../components/ProtectedRoute';
 import Index from '../pages/Admin/Index';
 import Driver from '../pages/Driver/Driver';
+import Bookings from '../pages/Driver/Bookings';
 
 
 const RoutesConfig = () => {
@@ -217,6 +218,14 @@ const RoutesConfig = () => {
         element={
           <>
             <Driver />
+          </>
+        }
+      />
+      <Route
+        path="/bookings"
+        element={
+          <>
+            <Bookings />
           </>
         }
       />

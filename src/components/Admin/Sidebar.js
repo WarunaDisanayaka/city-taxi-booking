@@ -33,7 +33,7 @@ const Sidebar = () => {
       </a>
       <hr className="sidebar-divider my-0" />
       <li className="nav-item">
-        <a className="nav-link" href="/admin_dashboard">
+        <a className="nav-link" href="/admin">
           <i className="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
