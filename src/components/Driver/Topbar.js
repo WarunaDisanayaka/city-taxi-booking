@@ -11,7 +11,7 @@ const Topbar = ({ roleid }) => {
 
   const handleLogout = () => {
     console.log('Logout button clicked'); // Add this log to check if the button is clicked
-    Cookies.remove('userToken');
+    localStorage.removeItem('token'); // Clear the token
     console.log('User token removed'); // Add this log to check if the user token is removed
     navigate('/'); // Use navigate to go to the desired route
     console.log('Navigate to root');
