@@ -180,9 +180,11 @@ const RoutesConfig = () => {
       <Route
         path="/driver"
         element={
-          <>
-            <Driver />
-          </>
+          <ProtectedRoute>
+            <>
+              <Driver />
+            </>
+          </ProtectedRoute>
         }
       />
       <Route
