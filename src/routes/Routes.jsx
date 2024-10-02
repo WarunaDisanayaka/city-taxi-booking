@@ -13,8 +13,8 @@ import Contact from '../pages/Contact';
 import NotFound from '../pages/NotFound';
 import CarBookingView from '../pages/CarBooking';
 import BookingDetails from '../pages/BookingDetails';
-import Header from '../components/Header'; // Import Header
-import Footer from '../components/Footer'; // Import Footer
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Index from '../pages/Admin/Index';
 import Driver from '../pages/Driver/Driver';

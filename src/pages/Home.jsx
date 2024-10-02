@@ -2,13 +2,8 @@ import React from 'react';
 import Helmet from '../components/Helmet';
 import HeroSlider from '../components/HeroSlider';
 import { Container, Row, Col } from 'reactstrap';
-import FindCarForm from '../components/FindCarForm';
 
-import HotOffer from '../components/HotOffer';
 import Testimonial from '../components/Testimonial';
-
-import ServicesItem from '../components/ServicesItem';
-import BlogList from '../components/BlogList';
 
 import BecomeDriver from '../components/BecomeDriver';
 
@@ -17,7 +12,7 @@ import AboutSection from '../components/AboutSection';
 const Home = () => {
   return (
     <Helmet title="Home">
-              <HeroSlider />
+      <HeroSlider />
 
       {/* <section className="p-0 hero__slider__section">
 
