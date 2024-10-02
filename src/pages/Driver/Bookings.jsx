@@ -18,7 +18,7 @@ function Bookings() {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/bookings/driver/${userId}`); // Replace '10' with actual driver ID
+                const response = await axios.get(`http://localhost:8000/api/bookings/driver/${userId}`);
                 setBookingData(response.data.bookings); // Store the fetched bookings in state
                 setLoading(false);
             } catch (err) {
@@ -28,7 +28,7 @@ function Bookings() {
         };
 
         fetchBookings();
-    }, []);
+    }, [userId]);
 
     // Function to update the status of a booking and send a message
     const updateStatus = async (bookingId, newStatus, driverId, phone, vehicleNumber) => {
@@ -66,6 +66,30 @@ function Bookings() {
             }
         } catch (error) {
             console.error("Failed to update booking status or send SMS", error);
+        }
+    };
+
+    // Function to mark a booking as "Trip Ended"
+    const endTrip = async (bookingId, driverId) => {
+        try {
+            // Update booking status to 'Completed'
+            const response = await axios.put('http://localhost:8000/api/bookings/update-status', {
+                bookingId,
+                newStatus: 'completed',
+                driverId
+            });
+
+            if (response.status === 200) {
+                // Update local state to reflect the change
+                const updatedData = bookingData.map((booking) =>
+                    booking.id === bookingId ? { ...booking, status: 'completed' } : booking
+                );
+                setBookingData(updatedData);
+
+                alert('Trip marked as completed successfully.');
+            }
+        } catch (error) {
+            console.error("Failed to mark the trip as completed", error);
         }
     };
 
@@ -116,7 +140,8 @@ function Bookings() {
                                             <td>{new Date(booking.created_at).toLocaleDateString()}</td>
 
                                             <td>
-                                                {booking.status === 'confirmed' ? (
+                                                {/* Confirm Button */}
+                                                {booking.status === 'confirmed' || booking.status === 'completed' ? (
                                                     <Button variant="secondary" disabled>
                                                         Confirmed
                                                     </Button>
@@ -126,7 +151,7 @@ function Bookings() {
                                                         onClick={() =>
                                                             updateStatus(
                                                                 booking.id,
-                                                                'Confirmed',
+                                                                'confirmed',
                                                                 userId, // Replace with actual driver ID
                                                                 booking.phone, // Phone number from table
                                                                 'KV-1234' // Replace with actual vehicle number
@@ -136,8 +161,21 @@ function Bookings() {
                                                         Confirm
                                                     </Button>
                                                 )}
-                                            </td>
 
+                                                {/* Trip End Button */}
+                                                <Button
+                                                    variant="warning"
+                                                    disabled={booking.status !== 'confirmed'}
+                                                    onClick={() =>
+                                                        endTrip(
+                                                            booking.id,
+                                                            userId // Replace with actual driver ID
+                                                        )
+                                                    }
+                                                >
+                                                    Trip End
+                                                </Button>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
