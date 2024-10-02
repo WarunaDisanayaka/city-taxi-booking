@@ -3,17 +3,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../assets/vendor/fontawesome-free/css/all.min.css';
 import '../../assets/css/sb-admin-2.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const Sidebar = () => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   const handleLogout = () => {
-    console.log('Logout button clicked'); // Add this log to check if the button is clicked
+    console.log('Logout button clicked');
     Cookies.remove('userToken');
-    console.log('User token removed'); // Add this log to check if the user token is removed
-    navigate('/'); // Use navigate to go to the desired route
+    console.log('User token removed');
+    navigate('/');
     console.log('Navigate to root');
   };
 
