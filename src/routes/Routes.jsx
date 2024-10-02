@@ -20,6 +20,7 @@ import Index from '../pages/Admin/Index';
 import Driver from '../pages/Driver/Driver';
 import Bookings from '../pages/Driver/Bookings';
 import SignInDriver from '../pages/SignInDriver';
+import MyBookings from '../pages/MyBookings';
 
 
 const RoutesConfig = () => {
@@ -152,6 +153,19 @@ const RoutesConfig = () => {
             <Contact />
             <Footer />
           </>
+        }
+      />
+      <Route
+        path="/my-bookings"
+        element={
+          <ProtectedRoute>
+            <>
+              <Header />
+              <MyBookings />
+              <Footer />
+            </>
+          </ProtectedRoute>
+
         }
       />
       <Route

@@ -23,6 +23,10 @@ const NAV__MENU = [
     text: 'Contact',
     path: '/contact',
   },
+  {
+    text: 'My Bookings',
+    path: '/my-bookings',
+  },
 ];
 
 const Header = () => {
