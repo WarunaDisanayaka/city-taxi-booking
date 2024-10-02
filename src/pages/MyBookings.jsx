@@ -11,21 +11,24 @@ import { Container, Row } from 'reactstrap';
 import BookingCard from '../components/BookingCard';
 
 const MyBookings = () => {
+    const userId = localStorage.getItem('passengerid'); // Get userId from localStorage
+    console.log(userId)
     // Fetch user bookings from the API
-    const { data: bookings, isPending, error } = useFetch(`${BASE_URL}/api/bookings/user`);
+    const { data, isPending, error } = useFetch(`${BASE_URL}/api/bookings/${userId}`);
+
+    // Extract bookings from the data object
+    const bookings = data.bookings || []; // Default to an empty array if bookings is undefined
 
     const [pageNumber, setPageNumber] = useState(0);
     const bookingsPerPage = 6;
     const visitedPage = pageNumber * bookingsPerPage;
 
-    // Paginate the bookings
-    const displayPage = bookings
-        ? bookings
-            .slice(visitedPage, visitedPage + bookingsPerPage)
-            .map(booking => <BookingCard key={booking.id} item={booking} />)
+    // Paginate the bookings only if bookings is an array
+    const displayPage = Array.isArray(bookings) && bookings.length > 0
+        ? bookings.slice(visitedPage, visitedPage + bookingsPerPage).map(booking => <BookingCard key={booking.id} item={booking} />)
         : null;
 
-    const pageCount = bookings ? Math.ceil(bookings.length / bookingsPerPage) : 0;
+    const pageCount = Math.ceil(bookings.length / bookingsPerPage);
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
@@ -33,6 +36,11 @@ const MyBookings = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+    }, [bookings]);
+
+    // Log bookings for debugging
+    useEffect(() => {
+        console.log("Fetched bookings:", bookings);
     }, [bookings]);
 
     return (
