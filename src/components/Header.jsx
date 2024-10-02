@@ -75,9 +75,6 @@ const Header = () => {
                     <Link to="/signin">
                       <i className="ri-login-circle-line"></i> Login
                     </Link>
-                    <Link to="/signindriver">
-                      <i className="ri-login-circle-line"></i> Driver Login
-                    </Link>
                     <Link to="/signup">
                       <i className="ri-user-line"></i> Register
                     </Link>
