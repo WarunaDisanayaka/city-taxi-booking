@@ -21,6 +21,7 @@ import Driver from '../pages/Driver/Driver';
 import Bookings from '../pages/Driver/Bookings';
 import SignInDriver from '../pages/SignInDriver';
 import MyBookings from '../pages/MyBookings';
+import AddPassenger from '../pages/Admin/AddPassenger';
 
 
 const RoutesConfig = () => {
@@ -173,6 +174,15 @@ const RoutesConfig = () => {
         element={
           <>
             <Index />
+          </>
+        }
+      />
+
+      <Route
+        path="/add-passenger"
+        element={
+          <>
+            <AddPassenger />
           </>
         }
       />
