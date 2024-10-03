@@ -83,7 +83,7 @@ const Sidebar = () => {
         >
           <span>
             <i className="fas fa-solid fa-user"></i>
-            Users
+            Passengers
           </span>
           <i className="fas fa-angle-right"></i>
         </a>
@@ -94,8 +94,8 @@ const Sidebar = () => {
           data-parent="#accordionSidebar"
         >
           <div className="bg-white py-2 collapse-inner rounded">
-            <a className="collapse-item" href="/add_user">
-              <i className="fas fa-plus-circle"></i> Add a User
+            <a className="collapse-item" href="/add-passenger">
+              <i className="fas fa-plus-circle"></i> Add a Passenger
             </a>
             <a className="collapse-item" href="/view_user">
               <i className="fas fa-newspaper"></i> User list
