@@ -35,7 +35,7 @@ const SignIn = () => {
       setUser({ id: passenger.id, username: passenger.username }); // Update user state in context
       setIsAuthenticated(true); // Set user as authenticated
 
-      navigate('/dashboard'); // Redirect to dashboard or another page
+      navigate('/car-listing'); // Redirect to dashboard or another page
     } catch (error) {
       console.error('Login failed:', error);
       setError('Login failed. Please check your credentials and try again.'); // Show error message

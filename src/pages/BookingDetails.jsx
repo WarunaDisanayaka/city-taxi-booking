@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const BookingDetails = () => {
     const location = useLocation();
@@ -9,6 +11,8 @@ const BookingDetails = () => {
     const ratePerKm = 120; // Example: Rs 120 per kilometer
     const userId = localStorage.getItem('passengerid'); // Get userId from localStorage
     console.log(userId)
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (distance) {
@@ -46,6 +50,8 @@ const BookingDetails = () => {
 
             const data = await response.json();
             alert(`Booking confirmed successfully! Booking ID: ${data.bookingId}`);
+            navigate('/my-bookings'); // Change this to your desired route
+
             // Optionally redirect or update state here
         } catch (error) {
             console.error('Error confirming booking:', error);
