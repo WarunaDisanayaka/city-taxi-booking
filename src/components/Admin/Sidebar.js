@@ -97,9 +97,9 @@ const Sidebar = () => {
             <a className="collapse-item" href="/add-passenger">
               <i className="fas fa-plus-circle"></i> Add a Passenger
             </a>
-            <a className="collapse-item" href="/view_user">
+            {/* <a className="collapse-item" href="/view_user">
               <i className="fas fa-newspaper"></i> User list
-            </a>
+            </a> */}
           </div>
         </div>
       </li>

@@ -1,33 +1,58 @@
 import React, { useState, useEffect } from 'react';
+import Topbar from '../../components/Admin/Topbar';
+import Sidebar from '../../components/Admin/Sidebar';
 import { Card, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useLocation } from 'react-router';
-import Sidebar from '../../components/Admin/Sidebar';
-import Topbar from '../../components/Admin/Topbar';
 
 function Index() {
-    const [open, setOpen] = useState('');
-    const [inprogress, setInprogress] = useState('');
-    const [repair, setRepair] = useState('');
-    const [closed, setClosed] = useState('');
+    const [total, setTotal] = useState(0); // Total Bookings
+    const [pending, setPending] = useState(0); // Pending Bookings
+    const [confirmed, setConfirmed] = useState(0); // Confirmed Bookings
+    const [completed, setCompleted] = useState(0); // Completed Bookings
 
     const location = useLocation();
     const roleid = location.state;
 
-    const variant = ['danger', 'info', 'warning', 'success'];
+    const variant = ['info', 'warning', 'info', 'success']; // Adjusting colors accordingly
     const titles = [
-        'Total Complains',
-        'Total Reviewed Cases',
-        'Total on Repair cases',
-        'Total Reslove Cases',
+        'Total Bookings',
+        'Total Pending Bookings',
+        'Total Confirmed Bookings',
+        'Total Completed Bookings',
     ];
-    const numbers = [open, inprogress, repair, closed];
+    const numbers = [total, pending, confirmed, completed];
     const iconlist = [
-        'fas fa-exclamation',
         'fas fa-user-check',
-        'fas fa-wrench',
-        'fas fa-check',
+        'fas fa-clock',
+        'fas fa-check-circle',
+        'fas fa-trophy',
     ];
+
+    // Fetch data from APIs
+    useEffect(() => {
+        // Function to fetch data from the APIs
+        const fetchData = async () => {
+            try {
+                const totalResponse = await axios.get('http://localhost:8000/api/bookings');
+                setTotal(totalResponse.data.totalBookings);
+
+                const pendingResponse = await axios.get('http://localhost:8000/api/pending-bookings');
+                setPending(pendingResponse.data.totalPendingBookings);
+
+                const confirmedResponse = await axios.get('http://localhost:8000/api/confirmed-bookings');
+                setConfirmed(confirmedResponse.data.totalConfirmedBookings);
+
+                const completedResponse = await axios.get('http://localhost:8000/api/completed-bookings');
+                setCompleted(completedResponse.data.totalCompletedBookings);
+            } catch (error) {
+                console.error('Error fetching booking data:', error);
+            }
+        };
+
+        // Call fetchData when the component mounts
+        fetchData();
+    }, []);
 
     return (
         <div className="d-flex">
@@ -35,7 +60,7 @@ function Index() {
                 <Sidebar />
             </div>
             <div className="flex-grow-1">
-                <Topbar />
+                <Topbar roleid={roleid} />
                 <div className="p-4 mt-5">
                     <Row xs={1} md={4} className="g-4">
                         {[0, 1, 2, 3].map(index => (

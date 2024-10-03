@@ -194,6 +194,17 @@ const RoutesConfig = () => {
         }
       />
 
+      <Route
+        path="/bookings"
+        element={
+          <ProtectedRoute>
+            <>
+              <Bookings />
+            </>
+          </ProtectedRoute>
+        }
+      />
+
       {/* Admin Routes */}
       <Route
         path="/admin"

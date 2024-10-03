@@ -39,7 +39,7 @@ const HeroSlider = () => {
             <h6 className="text-light mb-3">For Rent Rs 1000 Per Day</h6>
             <h1 className="text-light mb-4  ">Reserved Now and Get 20% Off</h1>
 
-           
+
           </div>
         </Container>
       </div>
@@ -49,10 +49,6 @@ const HeroSlider = () => {
           <div className=" slider__content w-50  ">
             <h6 className="text-light mb-3">For Rent Rs 1000 Per Day</h6>
             <h1 className="text-light mb-4  ">Reserved Now and Get 20% Off</h1>
-
-            <Button className="btn reserve__btn mt-4">
-              <Link to="/car-listing/:id">Reserve Now</Link>
-            </Button>
           </div>
         </Container>
       </div>

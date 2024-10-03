@@ -1,10 +1,36 @@
 import React from 'react';
 import { Col, Row, Card, CardBody, CardTitle, CardSubtitle, Button, Container } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/booking-card.css'; // Add necessary custom styles here
 
 const BookingCard = ({ item }) => {
     const booking = item;
+    const navigate = useNavigate();
+
+    // Function to handle booking status update
+    const handleCancelBooking = async () => {
+        try {
+            const payload = {
+                bookingId: booking.id,
+                newStatus: 'canceled', // Setting new status to 'canceled'
+                driverId: booking.driver_id // Assuming driverId comes from booking data
+            };
+
+            const response = await axios.put('http://localhost:8000/api/bookings/update-status', payload);
+
+            if (response.status === 200) {
+                alert('Booking canceled successfully');
+                navigate(`/my-bookings`); // Redirect to the bookings page
+            } else {
+                alert('Failed to cancel the booking');
+            }
+        } catch (error) {
+            console.error('Error canceling booking:', error);
+            alert('An error occurred while canceling the booking');
+        }
+        console.log(booking.id, booking.driver_id);
+    };
 
     return (
         <Container className="d-flex justify-content-center align-items-center">
@@ -27,10 +53,13 @@ const BookingCard = ({ item }) => {
                                     <span>{new Date(booking.journey_date).toLocaleDateString()}</span>
                                 </div>
                                 <div className="d-flex justify-content-start">
-                                    <Button color="danger" className="details-btn">
-                                        <Link to={`/booking-details/${booking.id}`} className="text-white text-decoration-none">
-                                            Cancel
-                                        </Link>
+                                    <Button
+                                        color="danger"
+                                        className="details-btn"
+                                        onClick={handleCancelBooking}
+                                        disabled={booking.status === 'canceled'} // Disable if the status is "canceled"
+                                    >
+                                        {booking.status === 'canceled' ? 'Canceled' : 'Cancel'}
                                     </Button>
                                 </div>
                             </div>
@@ -41,6 +70,5 @@ const BookingCard = ({ item }) => {
         </Container>
     );
 };
-
 
 export default BookingCard;
