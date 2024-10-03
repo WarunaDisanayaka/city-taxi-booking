@@ -6,21 +6,21 @@ import Sidebar from '../../components/Driver/Sidebar';
 import Topbar from '../../components/Driver/Topbar';
 
 function Driver() {
-    const [totalBookings, setTotalBookings] = useState('');
-    const [confirmedTrips, setConfirmedTrips] = useState('');
-    const [ongoingTrips, setOngoingTrips] = useState('');
-    const [completedTrips, setCompletedTrips] = useState('');
+    const [totalBookings, setTotalBookings] = useState(0);
+    const [confirmedTrips, setConfirmedTrips] = useState(0);
+    const [ongoingTrips, setOngoingTrips] = useState(0);
+    const [completedTrips, setCompletedTrips] = useState(0);
 
     const location = useLocation();
-    const roleid = location.state;
-
-    const variant = ['primary', 'success', 'warning', 'info']; // Changed colors
+    const driverId = localStorage.getItem('driverid'); // Get userId from localStorage
+    console.log(driverId)
+    const variant = ['primary', 'success', 'warning', 'info']; // Color variants
     const titles = [
         'Total Bookings',
         'Confirmed Trips',
         'Ongoing Trips',
         'Completed Trips',
-    ]; // Updated titles
+    ]; // Titles for each card
     const numbers = [totalBookings, confirmedTrips, ongoingTrips, completedTrips];
     const iconlist = [
         'fas fa-car',    // Icon for bookings
@@ -29,19 +29,30 @@ function Driver() {
         'fas fa-flag-checkered', // Icon for completed trips
     ];
 
-    // Example useEffect (future API integration)
+    // Fetch booking data for the driver from the API
     useEffect(() => {
-        // Here you would fetch data from the API for the dashboard
-        // Example:
-        // axios.get('/api/driver/dashboard').then(response => {
-        //     setTotalBookings(response.data.totalBookings);
-        //     setConfirmedTrips(response.data.confirmedTrips);
-        //     setOngoingTrips(response.data.ongoingTrips);
-        //     setCompletedTrips(response.data.completedTrips);
-        // }).catch(error => {
-        //     console.error('Error fetching dashboard data:', error);
-        // });
-    }, []);
+        if (driverId) {
+            // Fetch total bookings
+            axios.get(`http://localhost:8000/api/driver-bookings/${driverId}`)
+                .then(response => setTotalBookings(response.data.totalBookings))
+                .catch(error => console.error('Error fetching total bookings:', error));
+
+            // Fetch confirmed trips
+            axios.get(`http://localhost:8000/api/pending-bookings/${driverId}`)
+                .then(response => setConfirmedTrips(response.data.totalConfirmedBookings))
+                .catch(error => console.error('Error fetching confirmed trips:', error));
+
+            // Fetch ongoing trips
+            axios.get(`http://localhost:8000/api/confirmed-bookings/${driverId}`)
+                .then(response => setOngoingTrips(response.data.totalOngoingTrips))
+                .catch(error => console.error('Error fetching ongoing trips:', error));
+
+            // Fetch completed trips
+            axios.get(`http://localhost:8000/api/completed-bookings/${driverId}`)
+                .then(response => setCompletedTrips(response.data.totalCompletedBookings))
+                .catch(error => console.error('Error fetching completed trips:', error));
+        }
+    }, [driverId]);
 
     return (
         <div className="d-flex">
@@ -58,7 +69,7 @@ function Driver() {
                                     bg={variant[index]}
                                     text={variant[index] === 'light' ? 'dark' : 'white'}
                                     style={{
-                                        width: '18 rem',
+                                        width: '18rem',
                                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.4)',
                                     }}
                                     className="mb-2"
