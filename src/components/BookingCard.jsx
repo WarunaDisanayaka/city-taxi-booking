@@ -27,9 +27,9 @@ const BookingCard = ({ item }) => {
                                     <span>{new Date(booking.journey_date).toLocaleDateString()}</span>
                                 </div>
                                 <div className="d-flex justify-content-start">
-                                    <Button color="primary" className="details-btn">
+                                    <Button color="danger" className="details-btn">
                                         <Link to={`/booking-details/${booking.id}`} className="text-white text-decoration-none">
-                                            View Details
+                                            Cancel
                                         </Link>
                                     </Button>
                                 </div>
