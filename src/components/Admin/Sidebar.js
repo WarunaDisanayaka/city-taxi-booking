@@ -63,10 +63,10 @@ const Sidebar = () => {
           data-parent="#accordionSidebar"
         >
           <div className="bg-white py-2 collapse-inner rounded">
-            <a className="collapse-item" href="/add_room">
+            <a className="collapse-item" href="/add-booking">
               <i className="fas fa-plus-circle"></i> Add a Booking
             </a>
-            <a className="collapse-item" href="/view_room">
+            <a className="collapse-item" href="/add-booking">
               <i className="fas fa-newspaper"></i> Booking list
             </a>
           </div>
