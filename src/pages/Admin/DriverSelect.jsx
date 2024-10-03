@@ -5,8 +5,7 @@ import ReactPaginate from 'react-paginate';
 
 import '../../styles/pagination.css';
 
-import { Container, Row } from 'reactstrap';
-import CarCard from '../../components/CarCard';
+import { Container } from 'reactstrap';
 import Sidebar from '../../components/Admin/Sidebar';
 import Topbar from '../../components/Admin/Topbar';
 import DriverCard from '../../components/DriverCard';
@@ -18,7 +17,7 @@ const DriverSelect = () => {
     const driversPerPage = 6;
     const visitedPage = pageNumber * driversPerPage;
 
-    const displayPage = driverData
+    const displayPage = driverData && driverData.length > 0
         ? driverData
             .slice(visitedPage, visitedPage + driversPerPage)
             .map(driver => <DriverCard key={driver.id} item={driver} />)
@@ -47,18 +46,32 @@ const DriverSelect = () => {
                         </section>
                         <section className="pt-0 justify-content-center">
                             <Container>
+                                {/* Show loading message */}
                                 {isPending && <h6 className="text-center">Loading......</h6>}
+
+                                {/* Show error message if there's an error */}
                                 {error && <h6 className="text-center">{error}</h6>}
+
+                                {/* If no drivers available, show "No drivers available" */}
+                                {!isPending && driverData && driverData.length === 0 && (
+                                    <h6 className="text-center">No drivers available</h6>
+                                )}
+
+                                {/* Show drivers if available */}
                                 {displayPage}
-                                <div>
-                                    <ReactPaginate
-                                        previousLabel={'Prev'}
-                                        nextLabel={'Next'}
-                                        pageCount={pageCount}
-                                        onPageChange={changePage}
-                                        containerClassName="paginationBttns"
-                                    />
-                                </div>
+
+                                {/* Pagination component */}
+                                {driverData && driverData.length > 0 && (
+                                    <div>
+                                        <ReactPaginate
+                                            previousLabel={'Prev'}
+                                            nextLabel={'Next'}
+                                            pageCount={pageCount}
+                                            onPageChange={changePage}
+                                            containerClassName="paginationBttns"
+                                        />
+                                    </div>
+                                )}
                             </Container>
                         </section>
 
