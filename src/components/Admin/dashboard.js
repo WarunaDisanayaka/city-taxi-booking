@@ -6,10 +6,10 @@ import axios from 'axios';
 import { useLocation } from 'react-router';
 
 function Dashboard() {
-  const [open, setOpen] = useState('');
-  const [inprogress, setInprogress] = useState('');
-  const [repair, setRepair] = useState('');
-  const [closed, setClosed] = useState('');
+  const [open, setOpen] = useState(0);
+  const [inprogress, setInprogress] = useState(0);
+  const [repair, setRepair] = useState(0);
+  const [closed, setClosed] = useState(0);
 
   const location = useLocation();
   const roleid = location.state;
@@ -19,7 +19,7 @@ function Dashboard() {
     'Total Complains',
     'Total Reviewed Cases',
     'Total on Repair cases',
-    'Total Reslove Cases',
+    'Total Resolved Cases',
   ];
   const numbers = [open, inprogress, repair, closed];
   const iconlist = [
@@ -28,6 +28,41 @@ function Dashboard() {
     'fas fa-wrench',
     'fas fa-check',
   ];
+
+  // Fetch data from APIs
+  useEffect(() => {
+    // Function to fetch data from the APIs
+    const fetchData = async () => {
+      try {
+        const pendingResponse = await axios.get(
+          'http://localhost:8000/api/pending-bookings'
+        );
+        setOpen(pendingResponse.data.totalPendingBookings);
+
+        const confirmedResponse = await axios.get(
+          'http://localhost:8000/api/confirmed-bookings'
+        );
+        setInprogress(confirmedResponse.data.totalConfirmedBookings);
+
+        const repairResponse = await axios.get(
+          'http://localhost:8000/api/bookings'
+        );
+        setRepair(repairResponse.data.totalBookings);
+
+        const completedResponse = await axios.get(
+          'http://localhost:8000/api/completed-bookings'
+        );
+        setClosed(completedResponse.data.totalCompletedBookings);
+      } catch (error) {
+        console.error('Error fetching booking data:', error);
+      }
+    };
+
+    console.log(open);
+
+    // Call fetchData when the component mounts
+    fetchData();
+  }, []);
 
   return (
     <div className="d-flex">

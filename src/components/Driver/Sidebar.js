@@ -66,40 +66,6 @@ const Sidebar = () => {
             <a className="collapse-item" href="/bookings">
               <i className="fas fa-plus-circle"></i> Booking
             </a>
-            <a className="collapse-item" href="/view_room">
-              <i className="fas fa-newspaper"></i> Booking list
-            </a>
-          </div>
-        </div>
-      </li>
-      <li className="nav-item">
-        <a
-          className="nav-link collapsed d-flex align-items-center justify-content-between"
-          href="#collapseUsers"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseUsers"
-          aria-expanded="true"
-          aria-controls="collapseUsers"
-        >
-          <span>
-            <i className="fas fa-solid fa-user"></i>
-            Users
-          </span>
-          <i className="fas fa-angle-right"></i>
-        </a>
-        <div
-          id="collapseUsers"
-          className="collapse"
-          aria-labelledby="headingUsers"
-          data-parent="#accordionSidebar"
-        >
-          <div className="bg-white py-2 collapse-inner rounded">
-            <a className="collapse-item" href="/add_user">
-              <i className="fas fa-plus-circle"></i> Add a User
-            </a>
-            <a className="collapse-item" href="/view_user">
-              <i className="fas fa-newspaper"></i> User list
-            </a>
           </div>
         </div>
       </li>
