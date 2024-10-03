@@ -9,6 +9,9 @@ const AddBooking = () => {
     const [phone, setPhone] = useState('');
     const [passenger, setPassenger] = useState(null);
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);  // For tracking loading state
+    const [noResults, setNoResults] = useState(false);  // For tracking if no passenger was found
+
 
     const navigate = useNavigate(); // Initialize useNavigate
 
@@ -17,6 +20,10 @@ const AddBooking = () => {
         setPhone(e.target.value);
     };
 
+    const handleEditPassenger = (passengerId) => {
+        // You can implement the edit logic here, or navigate to an edit page
+        console.log(`Editing passenger with ID: ${passengerId}`);
+    };
     // Function to search for a passenger by phone number
     const searchPassenger = async () => {
         try {
@@ -46,45 +53,68 @@ const AddBooking = () => {
                 <Topbar />
                 <div className="p-4 mt-5">
                     <div className="container">
-                        <div>
-
+                        <div className="search-section">
                             {/* Search box */}
-                            <input
-                                type="text"
-                                value={phone}
-                                onChange={handleInputChange}
-                                placeholder="Enter phone number"
-                                style={{ padding: '8px', width: '200px', marginRight: '10px' }}
-                            />
+                            <div className="input-group mb-3 col-md-6">
+                                <input
+                                    type="text"
+                                    value={phone}
+                                    onChange={handleInputChange}
+                                    placeholder="Enter phone number"
+                                    className="form-control"
+                                    aria-label="Passenger phone number"
+                                />
+                                <button className="btn btn-primary" onClick={searchPassenger}>
+                                    {isLoading ? (
+                                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    ) : (
+                                        'Search'
+                                    )}
+                                </button>
+                            </div>
 
-                            {/* Search button */}
-                            <button className="btn btn-primary" onClick={searchPassenger} style={{ padding: '8px 16px' }}>
-                                Search
-                            </button>
+                            {/* Error handling */}
+                            {error && (
+                                <div className="alert alert-danger" role="alert">
+                                    {error}
+                                </div>
+                            )}
+
+                            {/* No passenger found */}
+                            {noResults && (
+                                <div className="alert alert-warning" role="alert">
+                                    No passenger found with that phone number.
+                                </div>
+                            )}
 
                             {/* Display search result */}
-                            {error && <p style={{ color: 'red' }}>{error}</p>}
-
                             {passenger && (
-                                <div style={{ marginTop: '20px' }}>
-                                    <h2>Passenger Details</h2>
-                                    <p><strong>ID:</strong> {passenger.id}</p>
-                                    <p><strong>Username:</strong> {passenger.username}</p>
-                                    <p><strong>Email:</strong> {passenger.email}</p>
-                                    <p><strong>Phone:</strong> {passenger.phone}</p>
+                                <div className="passenger-details card mt-4">
+                                    <div className="card-body">
+                                        <h4 className="card-title">Passenger Details</h4>
+                                        <p className="card-text"><strong>ID:</strong> {passenger.id}</p>
+                                        <p className="card-text"><strong>Username:</strong> {passenger.username}</p>
+                                        <p className="card-text"><strong>Email:</strong> {passenger.email}</p>
+                                        <p className="card-text"><strong>Phone:</strong> {passenger.phone}</p>
 
-                                    {/* Book Now Button */}
-                                    <button className="btn btn-success" onClick={handleBookingNavigation} style={{ padding: '8px 16px', marginTop: '20px' }}>
-                                        Book Now
-                                    </button>
+
+                                        {/* Book Now Button */}
+                                        <button
+                                            className="btn btn-success mt-3"
+                                            onClick={handleBookingNavigation}
+                                            style={{ padding: '10px 20px' }}
+                                        >
+                                            Book Now
+                                        </button>
+                                    </div>
                                 </div>
                             )}
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
     );
 };
 
