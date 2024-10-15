@@ -15,9 +15,21 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
       if (token) {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        setUser({ id: decodedToken.id, username: decodedToken.username });
-        setIsAuthenticated(true);
+        try {
+          const tokenParts = token.split('.');
+          if (tokenParts.length === 3) {
+            // Check if the token has 3 parts
+            const decodedToken = JSON.parse(atob(tokenParts[1]));
+            setUser({ id: decodedToken.id, username: decodedToken.username });
+            setIsAuthenticated(true);
+          } else {
+            console.error('Invalid token format');
+            localStorage.removeItem('token'); // Optionally remove invalid token
+          }
+        } catch (error) {
+          console.error('Error decoding token', error);
+          localStorage.removeItem('token'); // Optionally remove the token
+        }
       }
       setLoading(false);
     };

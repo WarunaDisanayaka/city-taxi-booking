@@ -18,6 +18,38 @@ const BecomeDriverForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  const validateForm = () => {
+    const { username, email, phone, vehicleType, vehicleNumber, password, confirmPassword, termsAccepted } = formData;
+
+    // Username validation
+    if (!username.trim()) return 'Username is required.';
+
+    // Email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.match(emailPattern)) return 'Invalid email address.';
+
+    // Phone number validation (10 digits starting with 0)
+    const phonePattern = /^0\d{9}$/;
+    if (!phone.match(phonePattern)) return 'Phone number must be 10 digits and start with 0.';
+
+    // Vehicle type validation
+    if (!vehicleType) return 'Please select a vehicle type.';
+
+    // Vehicle number validation
+    if (!vehicleNumber.trim()) return 'Vehicle number is required.';
+
+    // Password match validation
+    if (password !== confirmPassword) return 'Passwords do not match.';
+
+    // Password strength validation (at least 6 characters for this example)
+    if (password.length < 6) return 'Password must be at least 6 characters long.';
+
+    // Terms accepted validation
+    if (!termsAccepted) return 'You must accept the terms and conditions.';
+
+    return null; // No errors
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
@@ -29,8 +61,9 @@ const BecomeDriverForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setErrorMessage('Passwords do not match');
+    const validationError = validateForm();
+    if (validationError) {
+      setErrorMessage(validationError);
       return;
     }
 

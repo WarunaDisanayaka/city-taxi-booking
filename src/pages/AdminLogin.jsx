@@ -3,45 +3,35 @@ import CommonSection from '../components/CommonSection';
 import { Container, Row, Col, Form, FormGroup, Button, Input } from 'reactstrap';
 import Helmet from '../components/Helmet';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Import the AuthContext
-import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const AdminLogin = () => {
     const [emailOrPhone, setEmailOrPhone] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const userType = "driver" // Add userType with default value
     const navigate = useNavigate(); // Use navigate for redirection
     const { setUser, setIsAuthenticated } = useAuth(); // Destructure setUser and setIsAuthenticated
 
-    const handleSubmit = async (e) => {
+    const Credentials = {
+        emailOrPhone: "admin@gmail.com",
+        password: "admin123",
+        userType: "admin",
+    };
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
         setError(''); // Clear any previous errors
 
-        try {
-            const response = await axios.post('http://localhost:8000/api/auth/login', {
-                userType, // Add userType to the payload
-                emailOrPhone,
-                password,
-            });
-
-            const { token, driver } = response.data;
-
-            localStorage.setItem('token', token); // Save token in localStorage
-            localStorage.setItem('driverid', driver.id); // Save token in localStorage
-
-            setUser({ id: driver.id, username: driver.username }); // Update user state in context
-            setIsAuthenticated(true); // Set user as authenticated
-
-            navigate('/admin'); // Redirect to dashboard or another page
-        } catch (error) {
-            console.error('Login failed:', error);
-            setError('Login failed. Please check your credentials and try again.'); // Show error message
-        } finally {
-            setLoading(false); // Stop loading spinner
+        // Hardcoded login logic
+        if (emailOrPhone === Credentials.emailOrPhone && password === Credentials.password) {
+            navigate('/admin'); // Redirect to admin page
+        } else {
+            setError('Login failed. Incorrect credentials.'); // Show error message
         }
+
+        setLoading(false); // Stop loading spinner
     };
 
     return (

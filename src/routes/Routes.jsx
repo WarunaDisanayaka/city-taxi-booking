@@ -27,6 +27,11 @@ import DriverSelect from '../pages/Admin/DriverSelect';
 import AdminCarBooking from '../pages/Admin/AdminCarBooking';
 import AdminBookingForm from '../components/AdminBookingForm';
 import AdminBookingDetails from '../pages/Admin/AdminBookingDetails';
+import AdminLogin from '../pages/AdminLogin';
+
+const isAdmin = () => {
+  return true;
+};
 
 
 const RoutesConfig = () => {
@@ -209,9 +214,13 @@ const RoutesConfig = () => {
       <Route
         path="/admin"
         element={
-          <>
-            <Index />
-          </>
+          isAdmin() ? (
+            <>
+              <Index />
+            </>
+          ) : (
+            <Navigate to="/admin-login" replace />
+          )
         }
       />
       <Route
@@ -238,6 +247,18 @@ const RoutesConfig = () => {
           </>
         }
       />
+      <Route
+        path="/admin-login"
+        element={
+          <>
+            <Header />
+            <AdminLogin />
+            <Footer />
+
+          </>
+        }
+      />
+
       <Route
         path="/admin-book/:id"
         element={

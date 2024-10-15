@@ -10,7 +10,7 @@ const Register = () => {
     password: '',
     confirmPassword: '',
     userType: 'passenger',
-    acceptedTerms: false
+    acceptedTerms: false,
   });
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -25,13 +25,43 @@ const Register = () => {
     });
   };
 
+  // Validate phone number
+  const validatePhoneNumber = (phone) => {
+    const phoneRegex = /^0\d{9}$/;
+    return phoneRegex.test(phone);
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if all fields are filled
+    if (
+      !formData.username ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      setErrorMessage('Please fill in all the fields.');
+      return;
+    }
+
     // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
-      setErrorMessage('Passwords do not match');
+      setErrorMessage('Passwords do not match.');
+      return;
+    }
+
+    // Check if phone number is valid
+    if (!validatePhoneNumber(formData.phone)) {
+      setErrorMessage('Phone number must be 10 digits long and start with 0.');
+      return;
+    }
+
+    // Check if terms are accepted
+    if (!formData.acceptedTerms) {
+      setErrorMessage('You must accept the terms and conditions.');
       return;
     }
 
@@ -56,7 +86,7 @@ const Register = () => {
         setSuccessMessage(data.message);
         setErrorMessage('');
       } else {
-        setErrorMessage(data.message || 'Registration failed');
+        setErrorMessage(data.message || 'Registration failed.');
       }
     } catch (error) {
       setErrorMessage('An error occurred. Please try again.');
