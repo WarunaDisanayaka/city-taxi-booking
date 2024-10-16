@@ -71,18 +71,7 @@ const Home = () => {
         </Container>
       </section>
 
-      <section>
-        <Container>
-          <Row>
-            <Col lg="12" className="text-center">
-              <h6 className="section__subtitle">Our Clients Says</h6>
-              <h2 className="section__title">Testimonial</h2>
-            </Col>
-
-            <Testimonial />
-          </Row>
-        </Container>
-      </section>
+      
       {/* <section>
         <Container>
           <Row>
